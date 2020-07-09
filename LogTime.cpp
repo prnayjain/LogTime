@@ -312,8 +312,7 @@ int main(int argc, char *argv[])
 
         // Save file name so that it can be deleted afterwards
         std::string backupPath = appDataPath + LOG_TIME_FOLDER_NAME + BACKUP_FILE_NAME;
-        bool backingUp = std::filesystem::exists(backupPath);
-        if (backingUp)
+        if (std::filesystem::exists(backupPath))
         {
             std::ifstream backup(backupPath, std::ifstream::in);
             std::string lastFilePath;
@@ -328,17 +327,13 @@ int main(int argc, char *argv[])
         std::string attendanceStr = "/" + attendance.toString();
         std::string outputPath = desktopPath + attendanceStr + ".txt";
         std::ofstream output(outputPath, std::ofstream::out); //closes on destroy
+        std::ofstream backup(backupPath, std::ofstream::out);
+        backup << outputPath << '\n';
+
         if (attendance.getHour() >= MAX_HOUR)
             output << "Take some rest!\n";
         else
             output << "Keep working!\n";
-
-        if (backingUp)
-        {
-            std::ofstream backup(backupPath, std::ifstream::out);
-            backup << outputPath << '\n';
-        } //backup closed
-
         return output.rdstate();
     }
 }
