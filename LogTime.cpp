@@ -13,8 +13,10 @@
 #include <comutil.h> //for _bstr_t (used in the string conversion)
 #pragma comment(lib, "comsuppw")
 
-const std::string LogTimeFolderPath = "/Logtime";
-const std::string LogTimeFilePath = "/log.txt";
+const std::string LOG_TIME_FOLDER_NAME = "/Logtime";
+const std::string LOG_TIME_FILE_NAME = "/log.txt";
+const std::string BACKUP_FILE_NAME = "/bak.txt";
+const int MAX_HOUR = 4;
 
 enum Mode : char
 {
@@ -65,18 +67,28 @@ public:
     {
         this->hour += rhs.hour;
         this->minute += rhs.minute;
+        if (this->minute >= 60)
+        {
+            ++this->hour;
+            this->minute -= 60;
+        }
         return *this;
     }
 
     friend HourMin operator+(HourMin, const HourMin &);
 
-    std::string to_string()
+    std::string toString()
     {
         std::string ret = std::to_string(hour); //Q: better name?
         ret.append("h");
         ret.append(std::to_string(minute));
         ret.append("m");
         return ret;
+    }
+
+    int getHour() const
+    {
+        return hour;
     }
 };
 
@@ -149,11 +161,11 @@ public:
         todayMidnight = mktime(local);
     }
 
-    Day(std::vector<Session> &&sessions)
+    Day(std::vector<Session> &&incoming)
     {
-        this->sessions = std::move(sessions);
+        sessions = std::move(incoming);
 
-        for (auto &s : this->sessions)
+        for (auto &s : sessions)
         {
             if (s.getIn() < todayMidnight)
             {
@@ -164,14 +176,14 @@ public:
         sessions.erase(std::remove_if(sessions.begin(), sessions.end(), IsNotInCurrentDay), sessions.end());
     }
 
-    std::string getAttendance()
+    HourMin getAttendance()
     {
         HourMin hm(0);
         for (auto &s : this->sessions)
         {
             hm += s.getDuration();
         }
-        return hm.to_string();
+        return hm;
     }
 };
 
@@ -222,8 +234,8 @@ int main(int argc, char *argv[])
         return -2;
     }
 
-    std::filesystem::create_directory(appDataPath + LogTimeFolderPath);
-    std::string fullPath = appDataPath + LogTimeFolderPath + LogTimeFilePath;
+    std::filesystem::create_directory(appDataPath + LOG_TIME_FOLDER_NAME);
+    std::string fullPath = appDataPath + LOG_TIME_FOLDER_NAME + LOG_TIME_FILE_NAME;
 
     if (mode == RecordLogIn || mode == RecordLogOut)
     {
@@ -237,10 +249,10 @@ int main(int argc, char *argv[])
     {
         // Update Attendance
         std::vector<Session> sessions;
-        
+
         std::ifstream log(fullPath, std::ofstream::in);
         log.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-        
+
         char mode;
         time_t timestamp;
         try
@@ -296,12 +308,37 @@ int main(int argc, char *argv[])
 
         Day::setTodaysDay();
         Day day(std::move(sessions));
-        std::string attendance = "/" + day.getAttendance();
+        HourMin attendance = day.getAttendance();
 
         // Save file name so that it can be deleted afterwards
-        std::string outputPath = desktopPath + attendance + ".txt";
+        std::string backupPath = appDataPath + LOG_TIME_FOLDER_NAME + BACKUP_FILE_NAME;
+        bool backingUp = std::filesystem::exists(backupPath);
+        if (backingUp)
+        {
+            std::ifstream backup(backupPath, std::ifstream::in);
+            std::string lastFilePath;
+            std::getline(backup, lastFilePath);
+            if (backup.good() && !lastFilePath.empty())
+            {
+                // this returns false if file doesnt exist, so no problem
+                std::filesystem::remove(lastFilePath);
+            }
+        } // backup closed
+
+        std::string attendanceStr = "/" + attendance.toString();
+        std::string outputPath = desktopPath + attendanceStr + ".txt";
         std::ofstream output(outputPath, std::ofstream::out); //closes on destroy
-        output << "Yay!" << std::endl;
+        if (attendance.getHour() >= MAX_HOUR)
+            output << "Take some rest!\n";
+        else
+            output << "Keep working!\n";
+
+        if (backingUp)
+        {
+            std::ofstream backup(backupPath, std::ifstream::out);
+            backup << outputPath << '\n';
+        } //backup closed
+
         return output.rdstate();
     }
 }
