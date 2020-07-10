@@ -4,41 +4,55 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "Log In",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${fileDirname}\\LogTime.exe",
             "args": ["1"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
-            "preLaunchTask": "C/C++: cl.exe build active file"
+            "preLaunchTask": "Build LogInTime"
         },
         {
             "name": "Log Out",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${fileDirname}\\LogTime.exe",
             "args": ["2"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
-            "preLaunchTask": "C/C++: cl.exe build active file"
+            "preLaunchTask": "Build LogInTime"
         },
         {
             "name": "Update",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${fileDirname}\\LogTime.exe",
             "args": ["3"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
-            "preLaunchTask": "C/C++: cl.exe build active file"
+            "preLaunchTask": "Build LogInTime"
+        },
+        {
+            "name": "Make Task XMLs",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${fileDirname}\\PrepareTaskXml.exe",
+            "args": ["${workspaceFolder}"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "preLaunchTask": "Build PrepareTaskXml"
         }
+        
     ]
 }

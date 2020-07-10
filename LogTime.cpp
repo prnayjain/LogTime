@@ -116,7 +116,7 @@ public:
 
     time_t getIn() const
     {
-        return out;
+        return in;
     }
 
     void setIn(const time_t &in)
@@ -337,6 +337,3 @@ int main(int argc, char *argv[])
         return output.rdstate();
     }
 }
-
-// string homedrive(getenv("HOMEDRIVE"));
-// string homepath(getenv("HOMEPATH"));
