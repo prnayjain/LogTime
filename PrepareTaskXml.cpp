@@ -69,6 +69,7 @@ String replace(String &task, const String &placeholder, const String &replacemen
 
 void generateTaskXml(String taskTemplate, String fileName)
 {
+  cout << "Generating " << fileName << endl;
   String installPath = currentDirectory + Constants::BINARY_NAME;
   Ofstream logInXml(fileName, Ofstream::out);
   taskTemplate = replace(taskTemplate, Constants::SID_PLACEHOLDER, sid);
@@ -80,7 +81,8 @@ void generateTaskXml(String taskTemplate, String fileName)
 int _tmain(int argc, TCHAR* argv[])
 {
   if (argc != 2) return 1;
-  sid = argv[1];
+  sid = argv[1]; //computername\username,SID
+  sid = sid.substr(sid.find_first_of(TEXT(","))+1);
   loadEnvVars();
   generateTaskXml(Constants::LOG_OUT_TASK, currentDirectory + Constants::LOG_OUT_XML);
   generateTaskXml(Constants::LOG_IN_TASK, currentDirectory + Constants::LOG_IN_XML);

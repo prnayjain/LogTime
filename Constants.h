@@ -23,13 +23,13 @@ namespace Constants
       <UserId>CORP\USERNAME</UserId>
     </SessionStateChangeTrigger>
   </Triggers>
-  <Prinicpals>
+  <Principals>
     <Principal id="Author">
       <UserId>SID</UserId>
       <LogonType>S4U</LogonType>
       <RunLevel>LeastPrivilege</RunLevel>
     </Principal>
-  </Prinicpals>
+  </Principals>
   <Settings>
     <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
     <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
@@ -72,13 +72,13 @@ namespace Constants
       <UserId>CORP\USERNAME</UserId>
     </SessionStateChangeTrigger>
   </Triggers>
-  <Prinicpals>
+  <Principals>
     <Principal id="Author">
       <UserId>SID</UserId>
       <LogonType>S4U</LogonType>
       <RunLevel>LeastPrivilege</RunLevel>
     </Principal>
-  </Prinicpals>
+  </Principals>
   <Settings>
     <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
     <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
@@ -131,13 +131,13 @@ namespace Constants
       <Enabled>true</Enabled>
     </BootTrigger>
   </Triggers>
-  <Prinicpals>
+  <Principals>
     <Principal id="Author">
       <UserId>SID</UserId>
       <LogonType>S4U</LogonType>
       <RunLevel>LeastPrivilege</RunLevel>
     </Principal>
-  </Prinicpals>
+  </Principals>
   <Settings>
     <MultipleInstancesPolicy>StopExisting</MultipleInstancesPolicy>
     <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
