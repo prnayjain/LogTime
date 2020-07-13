@@ -28,15 +28,15 @@
         },
         {
             "type": "shell",
-            "label": "Build LogInTime",
+            "label": "Build LogTime",
             "command": "cl.exe",
             "args": [
                 "/std:c++17",
                 "/Zi",
                 "/EHsc",
                 "/Fe:",
-                "${fileDirname}\\LogInTime.exe",
-                "LogInTime.cpp"
+                "${fileDirname}\\LogTime.exe",
+                "LogTime.cpp"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

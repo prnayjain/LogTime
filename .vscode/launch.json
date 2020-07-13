@@ -15,7 +15,7 @@
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
-            "preLaunchTask": "Build LogInTime"
+            "preLaunchTask": "Build LogTime"
         },
         {
             "name": "Log Out",
@@ -27,7 +27,7 @@
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
-            "preLaunchTask": "Build LogInTime"
+            "preLaunchTask": "Build LogTime"
         },
         {
             "name": "Update",
@@ -39,7 +39,7 @@
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
-            "preLaunchTask": "Build LogInTime"
+            "preLaunchTask": "Build LogTime"
         },
         {
             "name": "Make Task XMLs",
