@@ -7,7 +7,7 @@ namespace Constants
 {
 
     const String USERNAME_PLACEHOLDER = TEXT("USERNAME");
-    const String COMPUTERNAME_PLACEHOLDER = TEXT("COMPUTERNAME");
+    const String SID_PLACEHOLDER = TEXT("SID");
     const String INSTALLPATH_PLACEHOLDER = TEXT("INSTALLPATH");
     const String BINARY_NAME = TEXT("/LogTime.exe");
     const String LOG_IN_XML = TEXT("/RecordLogIn.xml");
@@ -20,9 +20,16 @@ namespace Constants
     <SessionStateChangeTrigger>
       <Enabled>true</Enabled>
       <StateChange>RemoteConnect</StateChange>
-      <UserId>COMPUTERNAME\USERNAME</UserId>
+      <UserId>CORP\USERNAME</UserId>
     </SessionStateChangeTrigger>
   </Triggers>
+  <Prinicpals>
+    <Principal id="Author">
+      <UserId>SID</UserId>
+      <LogonType>S4U</LogonType>
+      <RunLevel>LeastPrivilege</RunLevel>
+    </Principal>
+  </Prinicpals>
   <Settings>
     <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
     <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
@@ -62,9 +69,16 @@ namespace Constants
     <SessionStateChangeTrigger>
       <Enabled>true</Enabled>
       <StateChange>RemoteDisconnect</StateChange>
-      <UserId>COMPUTERNAME\USERNAME</UserId>
+      <UserId>CORP\USERNAME</UserId>
     </SessionStateChangeTrigger>
   </Triggers>
+  <Prinicpals>
+    <Principal id="Author">
+      <UserId>SID</UserId>
+      <LogonType>S4U</LogonType>
+      <RunLevel>LeastPrivilege</RunLevel>
+    </Principal>
+  </Prinicpals>
   <Settings>
     <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
     <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
@@ -117,6 +131,13 @@ namespace Constants
       <Enabled>true</Enabled>
     </BootTrigger>
   </Triggers>
+  <Prinicpals>
+    <Principal id="Author">
+      <UserId>SID</UserId>
+      <LogonType>S4U</LogonType>
+      <RunLevel>LeastPrivilege</RunLevel>
+    </Principal>
+  </Prinicpals>
   <Settings>
     <MultipleInstancesPolicy>StopExisting</MultipleInstancesPolicy>
     <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
