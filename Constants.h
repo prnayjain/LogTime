@@ -107,7 +107,7 @@ namespace Constants
   <Actions Context="Author">
     <Exec>
       <Command>"INSTALLPATH"</Command>
-      <Arguments>1</Arguments>
+      <Arguments>2</Arguments>
     </Exec>
   </Actions>
 </Task>)");
